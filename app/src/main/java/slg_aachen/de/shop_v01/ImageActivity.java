@@ -1,13 +1,11 @@
 package slg_aachen.de.shop_v01;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Matrix;
-import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -27,16 +25,18 @@ import com.github.chrisbanes.photoview.PhotoView;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.*;
 
 import static android.app.Activity.RESULT_OK;
 
 /**
  * Fragment no. 4
+ *
  * @author Mirko
- * This is used to display a zoomable image
- * The image is opened either from the internal gallery or directly taken with the camera
- * It is then used to get the vibrant colors of the image or get a specific color value at one point
+ *         This is used to display a zoomable image
+ *         The image is opened either from the internal gallery or directly taken with the camera
+ *         It is then used to get the vibrant colors of the image or get a specific color value at one point
+ *         <p>
+ *         see chrisbanes PhotoView
  */
 
 public class ImageActivity extends Fragment {
@@ -59,7 +59,7 @@ public class ImageActivity extends Fragment {
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         photoView = (PhotoView) view.findViewById(R.id.photoView);
         pickerOn = false;
-        selectImage = (FloatingActionButton) view.findViewById(R.id.floatingActionButton); //creating multiple FAB...
+        selectImage = (FloatingActionButton) view.findViewById(R.id.floatingActionButton); //creating multiple FABs...
         picker = (FloatingActionButton) view.findViewById(R.id.floatingActionButton2);
         selectAll = (FloatingActionButton) view.findViewById(R.id.floatingActionButton3);
         delete = (FloatingActionButton) view.findViewById(R.id.floatingActionButton4);
@@ -116,18 +116,11 @@ public class ImageActivity extends Fragment {
                     photoView.setZoomable(true);
                     photoView.getAttacher().setDisplayMatrix(matrix);
                     setPicker(false);
-                    // photoView.setImageBitmap(filteredBitmap);
-
-                    ///float scale  = photoView.getScale();
-                    //photoView.setZoomable(false);
-                    // photoView.setScale(scale);
                 } else {
                     pickerOn = true;
                     photoView.setZoomable(false);
                     photoView.getAttacher().setDisplayMatrix(matrix);
-                    // Drawable d = view.getResources().getDrawable(, );
                     setPicker(true);
-                    //    photoView.getAttacher().setOnClickListener(this);
                 }
             }
         });
@@ -179,8 +172,6 @@ public class ImageActivity extends Fragment {
                 int[] palette = new int[6];
                 palette[0] = 0;
                 palette[1] = p.getVibrantColor(def);
-                //if(c1 == Color.BLACK)
-                //     c1 = p.getLightMutedColor(def);
                 palette[2] = p.getLightVibrantColor(def);
                 palette[3] = p.getDarkVibrantColor(def);
                 palette[4] = p.getMutedColor(def);
@@ -194,7 +185,6 @@ public class ImageActivity extends Fragment {
                         }
                     }
                 }
-                //extractedColors = new Swatch(new int[]{c1, c2, c3, c4, c5});
                 extractedColors = new Swatch(palette);
                 updateMainSwatch(extractedColors);
             }
@@ -210,19 +200,23 @@ public class ImageActivity extends Fragment {
         Matrix m = new Matrix();
         photoView.getAttacher().getImageMatrix().invert(m);
         m.mapPoints(points);
-
-        if (points[0] < 0) {
+        Log.e("POINTS0", String.valueOf(points[0]));
+        if (points[0] <= 0) {
             points[0] = 2;
-        } else if (points[0] > width) {
+        }
+        if (points[0] >= width) {
             points[0] = width - 2;
         }
-        if (points[1] < 0) {
+        if (points[1] <= 0) {
             points[1] = 2;
-        } else if (points[1] > height) {
+        }
+        if (points[1] >= height) {
             points[1] = height - 2;
         }
         int pixel = image.getPixel(Math.round(points[0]), Math.round(points[1]));
+
         ((MainActivity) getActivity()).updateColor(pixel);
+        ((MainActivity) getActivity()).sendHex(pixel);
 
 
     }
@@ -258,7 +252,7 @@ public class ImageActivity extends Fragment {
             try {
                 InputStream inputStream = getContext().getContentResolver().openInputStream(data.getData());
 
-               Bitmap d=  BitmapFactory.decodeStream(inputStream);
+                Bitmap d = BitmapFactory.decodeStream(inputStream);
                 photoView.setImageBitmap(d);
                 setVisibility(true);
 
