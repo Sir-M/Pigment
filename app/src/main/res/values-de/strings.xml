@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="disconnect">Verbindung trennen</string>
+    <string name="dialogTitle">Bitte geben Sie die IP-Adresse ihres Computers ein.</string>
+    <string name="dialogMessage">Stellen Sie sicher, dass Sie im selben Netzwerk wie ihre Serverkomponente sind und dass diese angeschaltet ist.</string>
+    <string name="dialogHex1">Bitte geben Sie einen hexadezimalen Farbwert ein.</string>
+    <string name="connect">Verbinden</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="swatch">Farbfeld</string>
+    <string name="delete">Löschen</string>
+    <string name="add_swatches">Aktuelles Farbfelder hinzufügen</string>
+    <string name="replace">Farbferlder ersetzen</string>
+    <string name="wifi_warning_off">Bitte schalten Sie WLAN ein, um sich mit Ihrem Netzwerk zu verbinden.</string>
+    <string name="wifi_warning_connection">Bitte verbinden sie sich mit ihrem Netzwerk, um eine Verbindung mit der Pigment - Desktop-Erweiterung sicherzustellen.</string>
+    <string name="settings">Einstellungen</string>
+    <string name="timeout">Zeitüberschreitung bei der Verbindung. Ist die IP-Adresse korrekt?</string>
+    <string name="an_error">Ein Fehler ist aufgetreten.</string>
+    <string name="info1">Diese App wurde entwickelt, um die Farbauswahl am Computer mit graphischen Programmen, insbesondere Photoshop, reibungsloser zu machen und auf eine zweite Schnittstelle zu verlagern. Dazu brauchen Sie eine zweite Komponente, die Sie auf ihrem Computer installieren müssen. LINK</string>
+    <string name="dev">Diese App wurde von Mirko Sowa während des Projektkurses \'Android App-Entwicklung\' am SLG Aachen entwickelt.</string>
+</resources>

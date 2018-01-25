@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorHighlights">#9e9e9e</color>
+    <color name="colorBackground">#333333</color>
+    <color name="colorAppBar">#333333</color>
+    <color name="colorAccent">#ffc400</color>
+    <color name="colorTextLight">#FFFFFF</color>
+    <color name="colorTextDark">#000000</color>
+    <color name="accent_material_dark_1">#ffffff</color>
+
+
+    <color name="Grey">#353535</color>
+    <color name="Black">#000000</color>
+    <color name="White">#ffffff</color>
+    <color name="BackGrey">#212121</color>
+    <color name="foreground_material_dark">#fdfdfd</color>
+    <color name="accent_material_dark">#ffffff</color>
+</resources>

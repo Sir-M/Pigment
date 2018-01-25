@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="connect">Connecter</string>
+    <string name="delete">Supprimer</string>
+    <string name="dialogHex1">Entrer un chiffre hexadecimal</string>
+    <string name="dialogMessage">.</string>
+    <string name="dialogTitle">Entrer l\'adresse IP de vortre ordinateur.</string>
+    <string name="disconnect">Déconnecter</string>
+    <string name="replace">Remplacer la palette</string>
+    <string name="settings">Paramètres</string>
+    <string name="swatch">Palette</string>
+    <string name="wifi_warning_connection">Veuillez vous connecter à un résau pour communiquer avec la version Pigment - ordinateur.</string>
+    <string name="wifi_warning_off">Veulliez activer votre connection Wifi.</string>
+    <string name="cancel">Annuler</string>
+    <string name="add_swatches">Ajouter la palette actuelle</string>
+    <string name="timeout">Dépassement du temps pour la connexion.</string>
+    <string name="an_error">Une erreure s\'est produite.</string>
+    <string name="info1">Cette application a été conçue pour être utilisée comme outil de gestion des couleurs, mais est aussi conçue comme une seconde interface pour choisir des couleurs en dessinant ou en éditant des photos sur l\'ordinateur, préférablement avec Photoshop. Pour mettre en route cette interface, il ne te reste plus qu\'a télécharger un deuxième logiciel sur ton ordinateur que tu peux trovuer ICI.</string>
+    <string name="dev">"Cette application a été développé par Mirko Sowa durant le projet d'études 'Développement d'appli Android' "</string>
+</resources>

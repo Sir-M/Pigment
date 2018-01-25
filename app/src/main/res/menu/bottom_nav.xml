@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!--    <shape android:id="@+id/circle"
+            android:shape="oval">
+                <solid
+                    android:color="@color/colorAccent"/>
+        </shape> -->
+        <item android:id="@+id/action_first"
+            android:title="@string/pointer"
+            android:icon="@drawable/ic_brightness_1_black_24dp" />
+        <item android:id="@+id/action_second"
+            android:title="@string/pointer"
+            android:icon="@drawable/ic_brightness_1_black_24dp" />
+        <item android:id="@+id/action_third"
+            android:title="@string/pointer"
+            android:icon="@drawable/ic_brightness_1_black_24dp" />
+        <item android:id="@+id/action_fourth"
+            android:title="@string/pointer"
+            android:icon="@drawable/ic_brightness_1_black_24dp" />
+        <item android:id="@+id/action_fifth"
+            android:title="@string/pointer"
+            android:icon="@drawable/ic_brightness_1_black_24dp" />
+</menu>

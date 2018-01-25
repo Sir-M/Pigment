@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/BackGrey"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <android.support.v7.widget.Toolbar
+        android:background="@color/Grey"
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentTop="true"
+        android:elevation="4sp"
+        android:drawSelectorOnTop="true"
+        android:layout_alignParentStart="true" />
+
+
+    <slg_aachen.de.shop_v01.CustomViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tabLayout"
+        android:layout_above="@+id/bottom">
+
+
+    </slg_aachen.de.shop_v01.CustomViewPager>
+
+
+    <android.support.design.widget.TabLayout
+        android:background="@color/Grey"
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/my_toolbar"
+
+
+        android:layout_alignParentStart="true"
+        android:elevation="4sp"
+        android:fillViewport="false" />
+
+    <FrameLayout
+        android:id="@+id/rgbSlider"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </FrameLayout>
+
+
+    <ProgressBar
+        android:indeterminate="true"
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar1">
+    </ProgressBar>
+
+    <com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
+        android:background="@color/Grey"
+        android:id="@+id/bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        app:itemBackground="@color/BackGrey"
+        app:itemIconTint="@color/colorTextLight"
+        app:itemTextColor="@color/colorTextLight"
+        app:menu="@menu/bottom_nav"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true" />
+
+
+</RelativeLayout>
