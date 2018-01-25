@@ -1,12 +1,13 @@
 # Pigment
 An Android app which lets you choose your color in Photoshop with additional perks.
-## Todo
-- Pointer movement
-- PhotoView zoom state is resetting
-- Scroll view in the Slider Fragment
-- Implement QR-Code connection
+## TODO
+- Fix PaletteView
+- Pointer movement and color
+- Implement NSD and JMDNS
+  - Remove IP Adress Input on Android
+  - Remove IP Label on Desktop
 - Information about the app
-- StayOpen
-- Fullscreen version
-- Premium version
-- Playstore beta
+- Scroll view in the Slider Fragment
+- Premium version (StayOpen, adding more than 3 swatches, taking picture, )
+- Playstore !
+- Port j
