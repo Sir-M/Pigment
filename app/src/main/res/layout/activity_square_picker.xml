@@ -11,7 +11,7 @@
         android:layout_above="@+id/button"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
-        android:max="360"
+        android:max="358"
         android:paddingBottom="@dimen/activity_horizontal_margin"
         android:progress="0" />
 
@@ -40,8 +40,7 @@
         android:paddingBottom="15dp"
         android:paddingEnd="15dp"
         android:paddingStart="15dp"
-        android:paddingTop="15dp"
-        />
+        android:paddingTop="15dp" />
 
     <ImageView
         android:id="@+id/pointerPicker"

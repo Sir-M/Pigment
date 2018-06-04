@@ -1,4 +1,4 @@
-package slg_aachen.de.shop_v01.SquarePicker;
+package slg_aachen.de.shop_v01;
 
 import android.content.Context;
 import android.support.annotation.Nullable;

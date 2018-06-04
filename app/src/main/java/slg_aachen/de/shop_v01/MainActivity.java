@@ -10,18 +10,18 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Bundle;
 import android.provider.Settings;
-
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -51,20 +51,22 @@ import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 
-import slg_aachen.de.shop_v01.SquarePicker.PickerFragment;
-
+import static slg_aachen.de.shop_v01.R.string.app_name;
 import static slg_aachen.de.shop_v01.R.string.cancel;
 import static slg_aachen.de.shop_v01.R.string.connect;
+import static slg_aachen.de.shop_v01.R.string.info1;
+import static slg_aachen.de.shop_v01.R.string.ok;
+import static slg_aachen.de.shop_v01.R.string.website;
 
 
 /*
-*The wrapper class of all fragments. Used for everything else too.
-*
-* TODO: ImageActivity zoom ;  touch indication on HSVPicker & Image ; zoom! error ; checkbox no. 3; InfoActivity in Dialog ; Ads? ; StayOpen in Menu
-*
-*/
+ *The wrapper class of all fragments. Used for everything else too.
+ *
+ * TODO: ImageActivity zoom ;  touch indication on HSVPicker & Image ; zoom! error ; checkbox no. 3; InfoActivity in Dialog ; Ads? ; StayOpen in Menu
+ *
+ */
 
-public class MainActivity extends AppCompatActivity{// implements AdapterView.OnItemClickListener {
+public class MainActivity extends AppCompatActivity {// implements AdapterView.OnItemClickListener {
 
 
     private Toolbar myToolbar;
@@ -116,8 +118,8 @@ public class MainActivity extends AppCompatActivity{// implements AdapterView.On
         return i;
     }
 */
-  //  public void clearCheckedList() {
-      //  checkedIndex = new List<>();
+    //  public void clearCheckedList() {
+    //  checkedIndex = new List<>();
     //}
 
 
@@ -530,6 +532,39 @@ public class MainActivity extends AppCompatActivity{// implements AdapterView.On
         builder1.show();
     }
 
+    private void showDialogInfo() {
+        LayoutInflater layoutInflaterAndroid = LayoutInflater.from(getApplicationContext());
+        // View v = layoutInflaterAndroid.inflate(R.layout.dialog_information, null);
+        AlertDialog.Builder builderInfo = new AlertDialog.Builder(this);
+
+        builderInfo.setTitle(getString(app_name));
+        builderInfo.setIcon(R.drawable.ic_pigmentv3);
+        builderInfo.setMessage(getString(info1));
+
+        builderInfo.setPositiveButton(
+                getString(ok), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+        builderInfo.setNeutralButton(
+                getString(website),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
+                        startActivity(browserIntent);
+                    }
+                });
+
+        // ImageView appLogo = findViewById(R.id.applogo);
+        //  appLogo.setImageResource(R.drawable.ic_pigmentv3);
+
+        //   builderInfo.setView(v);
+        builderInfo.show();
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) { // Handle presses on the Toolbar items
         PaletteFragment paletteActivity = (PaletteFragment) smartFragmentStatePagerAdapter.getRegisteredFragment(2);
@@ -572,7 +607,7 @@ public class MainActivity extends AppCompatActivity{// implements AdapterView.On
                 }
                 return true;
             case R.id.action_add:
-                paletteActivity.actionAdd();
+                paletteActivity.actionAdd(swatches);
                 /*
                 paletteActivity.insertPalette(swatches);
 
@@ -623,8 +658,7 @@ public class MainActivity extends AppCompatActivity{// implements AdapterView.On
                 return true;
 
             case R.id.action_info:
-                Intent intent = new Intent(getApplicationContext(), Info2.class);
-                startActivity(intent);
+                showDialogInfo();
                 return true;
 
             default:
@@ -742,6 +776,11 @@ public class MainActivity extends AppCompatActivity{// implements AdapterView.On
 
     public void setPaging(boolean t) {
         viewPager.setPagingEnabled(t);
+    }
+
+    public void setSelectedCheckBoxes(int count) {
+        selectedCheckBoxes = count;
+        invalidateOptionsMenu();
     }
 
 }

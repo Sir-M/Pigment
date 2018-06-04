@@ -3,6 +3,7 @@
     <string name="hex_Value" translatable="false">#424242</string>
     <string name="pointer" translatable="false">\u25B2</string>
     <string name="connect">Connect</string>
+    <string name="ok">OK</string>
     <string name="disconnect">Disconnect</string>
     <string name="dialogMessage">Make sure you are in same network and the server component is running correctly.</string>
     <string name="dialogTitle">Please enter the IP of your Computer.</string>
@@ -15,11 +16,14 @@
     <string name="wifi_warning_connection">Please connect to your network to establish a connection to Pigment-desktop.</string>
     <string name="wifi_warning_off">Please enable Wifi to connect with your network.</string>
     <string name="settings">Settings</string>
-    <string name="timeout">Connection timed out. Is the IP-Adress correct?</string>
+    <string name="timeout">Connection timed out. Is the IP-Address correct?</string>
     <string name="an_error">An error occurred.</string>
     <string name="information" translatable="false">Information</string>
     <string name="overflow" translatable="false">overflow</string>
-    <string name="info1">This application was designed to be used as color chooser and second interface while drawing, designing or editing photos on our computer, preferably with Photoshop. To make it work, you will need to install a second programm on your computer which you can download HERE.</string>
-    <string name="dev">This app was developed by Mirko Sowa during the project \'App develepoment with Android\' at the SLG Aachen High School.</string>
+    <string name="info1">This colour chooser is designed to be used as a second interface while using Photoshop.\nTo make this work, you\'ll need to install an application on your computer.\nIt can be found under: http://github.com/Sir-M/pigment \n \nDeveloper: Mirko S.\n</string>
+    <string name="minus">-</string>
+    <string name="plus">+</string>
+    <string name="website">Visit Website</string>
+
 
 </resources>

@@ -1,6 +1,7 @@
-package slg_aachen.de.shop_v01.SquarePicker;
+package slg_aachen.de.shop_v01;
 
 
+import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -25,11 +26,7 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.SeekBar;
-
-import slg_aachen.de.shop_v01.MainActivity;
-import slg_aachen.de.shop_v01.R;
 
 import static android.R.string.cancel;
 import static android.R.string.ok;
@@ -37,7 +34,7 @@ import static android.R.string.ok;
 /*
 * Fragment no. 2
 * This Activity is used to display a color picker
-* made in SatValView with shaders
+ * made in PickerView with shaders
 *
 * HSV - Picker
 *
@@ -48,7 +45,7 @@ public class PickerFragment extends android.support.v4.app.Fragment {
 
     private Button buttonHSVPicker;
     private SeekBar seekBar;
-    private ImageView i;
+    //   private ImageView i;
     private PickerView d;
 
 
@@ -56,14 +53,15 @@ public class PickerFragment extends android.support.v4.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_square_picker, container, false);
         super.onCreate(savedInstanceState);
-        seekBar = (SeekBar) view.findViewById(R.id.seekBar4);
-        i = (ImageView) view.findViewById(R.id.pointerPicker);
+        seekBar = view.findViewById(R.id.seekBar4);
+        // i = view.findViewById(R.id.pointerPicker);
 
-        d = (PickerView) view.findViewById(R.id.satValView);
-        i.setVisibility(View.GONE);
+        d = view.findViewById(R.id.satValView);
+        //i.setVisibility(View.GONE);
         return view;
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -107,10 +105,10 @@ public class PickerFragment extends android.support.v4.app.Fragment {
 
                 ViewTreeObserver obs2 = d.getViewTreeObserver();
                 //i.setPadding(left, top, right, bottom);
-             //   i.setPadding(15, 15, 15, 15);
-                i.setX(left);
-                i.setY(top);
-                i.setVisibility(View.VISIBLE);
+                //   i.setPadding(15, 15, 15, 15);
+                //i.setX(left);
+                //i.setY(top);
+                //i.setVisibility(View.VISIBLE);
 
                 obs2.removeOnGlobalLayoutListener(this);
 
@@ -143,6 +141,7 @@ public class PickerFragment extends android.support.v4.app.Fragment {
                     sendRGBtoUpdate();
                 }
             }
+
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {}
 
@@ -164,7 +163,7 @@ public class PickerFragment extends android.support.v4.app.Fragment {
                         setSatValCoords(event.getX(), event.getY());
                         sendRGBtoUpdate();
                         Log.e("ACTIONS - HSV","DOWN");
-                       return true;
+                        return true;
 
                     case MotionEvent.ACTION_MOVE:
                         movePointer(event.getX(), event.getY(), true);
@@ -232,7 +231,8 @@ public class PickerFragment extends android.support.v4.app.Fragment {
         Color.colorToHSV(c, a);
         seekBar.setProgress(Math.round(a[0]));
         d.setSatVal(a[1], a[2]);
-        movePointer(a[1], a[2], false);
+        movePointer(a[1] * 1000, 1000 - (a[2] * 1000), true);
+        Log.e("T", String.valueOf(a[2] * 1000));
         String strColor = String.format("#%06X", 0xFFFFFF & c);
         buttonHSVPicker.setText(strColor);
 
@@ -240,8 +240,8 @@ public class PickerFragment extends android.support.v4.app.Fragment {
 
     private void movePointer(float x, float y, boolean withMargin){
        // if(withMargin){
-            i.setX(x);
-            i.setY(y);
+        // i.setX(x);
+        // i.setY(y);
    /*     }
         else{
             int leftPadding = d.getPaddingLeft();
@@ -294,7 +294,8 @@ public class PickerFragment extends android.support.v4.app.Fragment {
             public void onClick(View v) {
                 ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
                 ClipData clip = ClipData.newPlainText("HEX-Value", String.valueOf(input.getText()));
-                clipboard.setPrimaryClip(clip);
+                if (clipboard != null && clip != null)
+                    clipboard.setPrimaryClip(clip);
             }
         });
 

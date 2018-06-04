@@ -23,16 +23,12 @@ import android.widget.ImageView;
  *
  */
 
-class ListAdapter extends ArrayAdapter<Swatch> {
+class ListAdapter extends ArrayAdapter<Swatch> {//implements Checkable{
 
     private Context con;
     private Swatch[] swatches;
-    ImageView v1;
-    ImageView v2;
-    ImageView v3;
-    ImageView v4;
-    ImageView v5;
-    CheckBox box;
+    private ViewHolder r;
+
 
     ListAdapter(@NonNull Context context, @LayoutRes int resource, Swatch[] s) {
         super(context, resource, s);
@@ -40,31 +36,25 @@ class ListAdapter extends ArrayAdapter<Swatch> {
         swatches = s;
     }
 
-
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View row = convertView;
 
-        ViewHolder r;
-
-
         if (row == null) {
             LayoutInflater inflater = ((Activity) con).getLayoutInflater();
             r = new ViewHolder();
             row = inflater.inflate(R.layout.view_list_row_swatches, parent, false);
-            r.v1 = (ImageView) row.findViewById(R.id.ic1);
-            r.v2 = (ImageView) row.findViewById(R.id.ic2);
-            r.v3 = (ImageView) row.findViewById(R.id.ic3);
-            r.v4 = (ImageView) row.findViewById(R.id.ic4);
-            r.v5 = (ImageView) row.findViewById(R.id.ic5);
+            r.v1 = row.findViewById(R.id.ic1);
+            r.v2 = row.findViewById(R.id.ic2);
+            r.v3 = row.findViewById(R.id.ic3);
+            r.v4 = row.findViewById(R.id.ic4);
+            r.v5 = row.findViewById(R.id.ic5);
             r.box = row.findViewById(R.id.checkBox);
             row.setTag(r);
         } else {
             r = (ViewHolder) row.getTag();
         }
-
-
         Swatch swatch = swatches[position];
 
         int c0 = swatch.getSwatch(0);
@@ -84,10 +74,20 @@ class ListAdapter extends ArrayAdapter<Swatch> {
         int c4 = swatch.getSwatch(4);
         r.v5.setColorFilter(c4, PorterDuff.Mode.SRC_ATOP);
 
-        r.box.setChecked(false);
+       /*r.box.setOnClickListener(new View.OnClickListener() {
+           @Override
+          public void onClick(View view) {
+               Log.e("FINALLY","A CLICK");
+
+           }
+       }); */
+
         return row;
     }
 
+    public void setCheckBox(boolean b) {
+        r.box.setChecked(b);
+    }
 
     private static class ViewHolder {
         ImageView v1;
