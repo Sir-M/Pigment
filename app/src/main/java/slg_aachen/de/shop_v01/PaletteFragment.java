@@ -7,13 +7,13 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.CheckBox;
 
 /**
  * Fragment no. 3
@@ -26,6 +26,7 @@ import android.widget.CheckBox;
  * save, delete and load back palettes
  * showed in a listview with a checkbox
  */
+
 public class PaletteFragment extends Fragment {
     private SQLiteDatabase db;
     private DBHelper dbHelper;
@@ -43,6 +44,11 @@ public class PaletteFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        swatchRecyclerView = getView().findViewById(R.id.recylcerView);
+        swatchRecyclerView.setAdapter(swatchAdapter);
+        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        swatchRecyclerView.setLayoutManager(llm);
         Getter g = new Getter();
         g.execute();
     }
@@ -50,16 +56,24 @@ public class PaletteFragment extends Fragment {
     private void initListView(final Swatch[] swatches) {
         if (swatches != null) {
             View view = getView();
-            swatchAdapter = new SwatchAdapter(getLayoutInflater(), swatches);
-            swatchRecyclerView = view.findViewById(R.id.recylcerView);
-            swatchRecyclerView.setAdapter(swatchAdapter);
+            swatchAdapter = new SwatchAdapter(swatches);
+            if (view != null) {
+                /// swatchRecyclerView = view.findViewById(R.id.recylcerView);
+                //swatchRecyclerView.setAdapter(swatchAdapter);
+                swatchAdapter.setItemClickListener(new SwatchAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        ((MainActivity) getActivity()).setSelectedCheckBoxes(swatchAdapter.getSelectedCount());
+                    }
+                });
 
-            listChanged();
+                swatchRecyclerView.setAdapter(swatchAdapter);
+                listChanged();
+            } else {
+                Log.e("PaletteFragment init", "initListView view = null");
+            }
         }
-    }
 
-    public Swatch getSwatchAt(int pos) {
-        return swatchAdapter.getItem(pos);
     }
 
     public void insertPalette(Swatch s) { //insert swatch, starting Inserter
@@ -69,8 +83,7 @@ public class PaletteFragment extends Fragment {
     }
 
     public void listChanged() {
-
-        swatchAdapter.notifyDataSetChanged();
+        swatchAdapter.uncheckAll();
         ((MainActivity) getActivity()).setSelectedCheckBoxes(0);
     }
 
@@ -86,7 +99,7 @@ public class PaletteFragment extends Fragment {
     }
 
     private void scrollToLast() { //see method name
-        if (swatchRecyclerView != null) {
+        if (swatchRecyclerView != null && swatchRecyclerView.getChildCount() > 1) {
             swatchRecyclerView.scrollToPosition(swatchAdapter.getItemCount() - 1);
         }
     }
@@ -101,38 +114,46 @@ public class PaletteFragment extends Fragment {
 
     public void actionTransfer() {
         Log.e("D", "actionTRANSFER");
-        int pos = -1;
-        for (int i = 0; i < swatchAdapter.getItemCount(); i++) {
-            //CheckBox checkBox = swatchRecyclerView.getAdapter().getView(i, null, swatchRecyclerView).findViewById(R.id.checkBox);
-            //= swatchRecyclerView.getChildAt(i).findViewById(R.id.checkBox);
-            // if (checkBox != null && checkBox.isChecked()) {
-            //   pos = i;
-            //    checkBox.toggle();
-
-            //          }
-            if (pos != -1) {
-                ((MainActivity) getActivity()).setAllSwatches(getSwatchAt(pos));
-            }
+        if (swatchAdapter.getSelectedCount() == 1) {
+            ((MainActivity) getActivity()).setAllSwatches(swatchAdapter.getSelectedSwatches()[0]);
             listChanged();
         }
+
+        //  for (int i = 0; i < swatchAdapter.getItemCount(); i++) {
+        //CheckBox checkBox = swatchRecyclerView.getAdapter().getView(i, null, swatchRecyclerView).findViewById(R.id.checkBox);
+        //= swatchRecyclerView.getChildAt(i).findViewById(R.id.checkBox);
+        // if (checkBox != null && checkBox.isChecked()) {
+        //   pos = i;
+        //    checkBox.toggle();
+
+        //          }
+
+        //if (pos != -1) {
+
+        // }
+
     }
+
 
     public void actionDelete() {
         Log.e("D", "actionDEL");
-        List<Integer> positions = new List<>();
-        for (int i = 0; i < swatchAdapter.getItemCount(); i++) {
+        List<Integer> positions = swatchAdapter.getSelectedPositions();
+        positions.toFirst();
+        if (!positions.isEmpty()) {
+            deletePalette(positions);
+        }
+       /* for (int i = 0; i < swatchAdapter.getItemCount(); i++) {
             CheckBox checkBox = swatchRecyclerView.getChildAt(i).findViewById(R.id.checkBox);
             if (checkBox != null && checkBox.isChecked()) {
                 positions.append(i);
                 checkBox.toggle();
             }
-        }
-        deletePalette(positions);
+        }*/
 
     }
 
     public void actionAdd(Swatch swatch) {
-        Log.e("D", "actioADD");
+        Log.e("D", "actionADD");
         insertPalette(swatch);
     }
 
@@ -147,7 +168,7 @@ public class PaletteFragment extends Fragment {
             dbHelper = new DBHelper(getContext());
             db = dbHelper.getReadableDatabase();                                //get DBHelper and a database from which we can read
             Cursor c = db.rawQuery("SELECT rowid, c1, c2, c3, c4, c5 FROM palette", null); //executing SQL command on SQLite DB
-            // Log.e("ERROR", DatabaseUtils.dumpCursorToString(c));             //This could be used to see the output of the database, very nice for debugging
+            //Log.e("info", DatabaseUtils.dumpCursorToString(c));             //This could be used to see the output of the database, very nice for debugging
             if (c != null && c.moveToFirst()) {                                 //iterating Cursor object
                 sw = new Swatch[c.getCount()];                                  //instancing final result
 
@@ -158,7 +179,7 @@ public class PaletteFragment extends Fragment {
 
                     for (int a = 0; a < c.getColumnCount(); a++) {              //iterating through all columns of one row to get all colors
                         if (c.getString(a) == null)
-                            Log.e("PALETTE GETTER", "STRING null");   //bug fixed. string was null. weird.
+                            Log.e("Error PaletteFragment", "Getter: string == null");   //bug fixed. string was null. weird.
 
                         else {
                             swatches[a] = Integer.parseInt(c.getString(a));     //load result into swatch
@@ -180,8 +201,9 @@ public class PaletteFragment extends Fragment {
 
         @Override
         protected void onPostExecute(Swatch[] swatches) {
-            initListView(swatches);
             super.onPostExecute(swatches);
+            initListView(swatches);
+            scrollToLast();
         }
     }
 
@@ -198,11 +220,12 @@ public class PaletteFragment extends Fragment {
 
         @Override
         protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
             Getter g = new Getter();
             g.execute();
-            listChanged();
-            scrollToLast();
-            super.onPostExecute(aVoid);
+            //listChanged();
+            //  scrollToLast();
+            ;
         }
     }
 
@@ -215,6 +238,7 @@ public class PaletteFragment extends Fragment {
             db = dbHelper.getWritableDatabase();
             for (number.toFirst(); number.hasAccess(); number.next()) {
                 Object index = number.getContent();
+                Log.e("deleter ", "deleting pos " + index);
                 Cursor c = db.rawQuery("SELECT rowid, c1, c2, c3, c4, c5 FROM palette WHERE rowid=" + index, null);
                 if (c.moveToFirst()) {
                     db.execSQL("DELETE FROM palette WHERE rowid=" + index);
@@ -228,11 +252,13 @@ public class PaletteFragment extends Fragment {
 
         @Override
         protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
             Getter g = new Getter();
             g.execute();
             listChanged();
-            scrollToLast();
-            super.onPostExecute(aVoid);
+
+            // scrollToLast();
+
         }
     }
 }

@@ -4,9 +4,10 @@ import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-/*
-* This class is merely important.
-* It is just used to disable the swiping between the tabs.
+
+/**
+ * This class is not important.
+ * It is just used to disable the swiping between the tabs.
  */
 public class CustomViewPager extends ViewPager {
 

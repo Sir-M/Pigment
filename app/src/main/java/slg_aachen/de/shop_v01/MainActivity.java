@@ -259,7 +259,7 @@ public class MainActivity extends AppCompatActivity {// implements AdapterView.O
         visibility = false;
         swatches = new Swatch(0);
 
-        checkedIndex = new List<>();
+        //    checkedIndex = new List<>();
 
 
         mProgress = (ProgressBar) findViewById(R.id.progressBar1); //indeterminate progress bar shown upon start of async tasks
